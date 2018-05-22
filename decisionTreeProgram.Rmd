@@ -1,0 +1,67 @@
+---
+title: "DecisionTreeProgram"
+author: "Mohammad Tariq"
+date: "May 21, 2018"
+output: 
+  html_document:
+    css: mystyle.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+R use **party** package to create decision trees. And in party package there is inbuilt dataset named as **readingSkills** on which we will create decision tree. we can get to know about datasets present in a particular package by executing the following R code
+```{r  include=FALSE}
+library(party)
+```
+
+```{r}
+  data(package='party')
+```
+The **party** package has the function called as **ctree** to create and analyzed tree.
+The dataset **readingSkills** has the attributes age,score,shoeSize and the Class varibale nativeSpeaker. Decision tree will describe that whether a person is a ntiveSpeaker or not by analyzing age,score and shoesize attributes.
+
+## Input data readingSkills 
+The following data is the sample of readingSkills dataset
+```{r, echo=FALSE}
+writeLines("td, th { padding : 6px } th { background-color : #000000 ; color : white; border : 1px solid white; } td { color : black ; border : 1px solid gray }", con = "mystyle.css")
+
+knitr::kable(readingSkills[1:20, ],format="html")
+```
+
+Assigning first 100 rows of readingSkills dataset to a varaiable. And lets just named variable  training.Data 
+
+```{r }
+training.Data<-readingSkills[c(1:110), ]
+```
+
+Now we will create decision tree using **ctree()** function.
+```{r}
+decision.tree<- ctree(
+  nativeSpeaker ~ age + shoeSize + score, data = training.Data
+)
+```
+
+
+
+
+
+
+
+
+
+
+## Decision Tree 
+
+```{r}
+plot(decision.tree)
+```
+
+## Conclusion
+From above tree we can conclude that 
+
+- A person whose readingSkills Score is greater than 50.84 is a nativeSpeaker.
+- A person whose score is greater than 34.72 and age is less than or equal to 7 is also a nativeSpeaker.
